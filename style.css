@@ -15,6 +15,8 @@ body{
     align-items: center;
     width: 100vw;
     height: 100vh;
+    position: relative;
+    isolation: isolate;
 }
 header{
     display: flex;
@@ -37,7 +39,7 @@ li{
 }
 a{
     text-decoration: none;
-    color: black;
+    color: white;
     font-size: 33px;
     font-family: 'Slabo 27px', serif;
 }
@@ -46,13 +48,38 @@ a{
   font-weight: 600;
   font-style: normal;
 }
-#backgroundImage{
+#backgroundImage,
+.bg-layer{
     position: absolute;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
+    z-index: -2;
+}
+.bg-layer{
+    z-index: -3;
+    transition: opacity 1.8s ease-in-out;
+    will-change: opacity;
+}
+.bg-fade-out{
+    opacity: 0;
+}
+.bg-fade-in{
+    opacity: 0;
+}
+.bg-fade-in-active{
+    opacity: 1;
+}
+.screen1::after{
+    content: "";
+    position: absolute;
+    inset: 0;
     z-index: -1;
-    filter:opacity(60%);
+    background:
+        linear-gradient(120deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.15)),
+        radial-gradient(circle at 20% 20%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+    pointer-events: none;
 }
 .banner {
     display: flex;
@@ -60,9 +87,53 @@ a{
     width: 40vw;
     align-self: baseline;
     margin-left: 10vw;
-    padding-top: 60vh;
+    padding-top: 50vh;
+}
+.banner h1{
+    font-size: 45px;
+    color: white;
+
 }
 .down{
 width: 100vw;
 
+}
+p{
+    color: white;
+
+}
+.current{
+    display: flex;
+    width: 100vw;
+    background-color: green;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    gap: 10px;
+}
+.current h5{
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+
+}
+.current button{
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: green;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.current button:hover{
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: white;
+    color: green;
+    border: 1px solid green;
+    border-radius: 5px;
+    cursor: pointer;
 }

@@ -1,9 +1,9 @@
 // Background Rotator
 // Tries to load image list from /src/images.json; falls back to parsing directory listing
-// or attempting numbered filenames. Preloads images and rotates the `#bg` element.
+// or attempting numbered filenames. Preloads images and rotates the `#backgroundImage` element.
 
 (function () {
-  const bgEl = document.getElementById('bg');
+  const bgEl = document.getElementById('backgroundImage');
   if (!bgEl) return;
 
   const CONFIG = {
@@ -14,26 +14,23 @@
     maxAutoDetect: 20 // try image1..image20 if no manifest
   };
 
-  function setBackground(url) {
-    // Use a temporary image to ensure smooth transition
-    const prev = bgEl.cloneNode();
-    prev.style.backgroundImage = bgEl.style.backgroundImage;
-    prev.className = '';
-    prev.style.zIndex = '0';
-    prev.style.position = 'fixed';
-    prev.style.inset = '0';
-    prev.style.transition = 'opacity 1s ease-in-out, transform 1s ease-in-out';
-    prev.style.willChange = 'opacity, transform';
-    document.body.appendChild(prev);
+  const FADE_MS = 1800;
 
-    // Fade out the clone, while setting new bg in original
-    requestAnimationFrame(() => {
-      bgEl.style.backgroundImage = `url('${url}')`;
-      bgEl.classList.remove('bg-fade-out');
-      // slightly delay fade out for smoother crossfade
+  function setBackground(url) {
+    // Fade the new image in above the current one to avoid blank frames
+    const next = bgEl.cloneNode();
+    next.src = url;
+    next.classList.add('bg-layer', 'bg-fade-in');
+    next.style.opacity = '0';
+    bgEl.parentElement.appendChild(next);
+
+    next.addEventListener('load', () => {
       requestAnimationFrame(() => {
-        prev.classList.add('bg-fade-out');
-        setTimeout(() => prev.remove(), 1100);
+        next.classList.add('bg-fade-in-active');
+        setTimeout(() => {
+          bgEl.src = url;
+          next.remove();
+        }, FADE_MS);
       });
     });
   }
@@ -86,6 +83,10 @@
     return results.filter(r => r.ok).map(r => r.url);
   }
 
+  function resolveUrl(url) {
+    return new URL(url, window.location.href).href;
+  }
+
   async function findImages() {
     let imgs = await tryFetchManifest();
     if (imgs && imgs.length) return imgs;
@@ -99,7 +100,7 @@
   async function init() {
     const images = await findImages();
     if (!images.length) {
-      // nothing found; leave default background
+      // nothing found; keep the default image
       console.warn('Background rotator: no images found in /src. See README for instructions.');
       return;
     }
@@ -112,9 +113,11 @@
     }
     if (!good.length) return;
 
-    let idx = 0;
-    // set initial background
-    bgEl.style.backgroundImage = `url('${good[0]}')`;
+    let idx = good.findIndex((url) => resolveUrl(url) === bgEl.src);
+    if (idx < 0) {
+      idx = 0;
+      bgEl.src = good[0];
+    }
 
     setInterval(() => {
       idx = (idx + 1) % good.length;
