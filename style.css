@@ -22,8 +22,9 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+
     padding: 10px;
+    width: 100vw;
 }
 ul{
     display: flex;
@@ -136,4 +137,9 @@ p{
     border: 1px solid green;
     border-radius: 5px;
     cursor: pointer;
+}
+.page1{
+    width: 100vw;
+    height: 100px;
+    background-color: #d94833;
 }
