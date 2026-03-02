@@ -1,51 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tomato Theatre Company</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tomato Theatre Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --tomato: #d63f2f;
+      --tomato-dark: #8f1f15;
+      --leaf: #0f7b43;
+      --leaf-dark: #0a4d2a;
+      --cream: #fff8ef;
+      --ink: #201d1b;
+      --muted: #5e5752;
+      --card: #ffffff;
+    }
 
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -10%, #ffd8cf 0, transparent 35%),
+        radial-gradient(circle at 95% 20%, #d8f6e3 0, transparent 30%),
+        linear-gradient(160deg, #fffaf6 0%, #fff2e2 100%);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--leaf-dark);
+      color: #fff;
+      padding: 0.7rem 1rem;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .topbar a {
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      padding: 0.28rem 0.68rem;
+      font-weight: 700;
+    }
+
+    .page {
+      width: min(1140px, 94vw);
+      margin: 0 auto;
+      padding: 1.2rem 0 3rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 0.75rem;
+      margin-bottom: 1.25rem;
+      border-radius: 999px;
+      border: 1px solid #f2d9ce;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 10px 28px rgba(143, 31, 21, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.96rem;
+      padding: 0.38rem 0.72rem;
+      border-radius: 999px;
+    }
+
+    .nav a.active,
+    .nav a:hover {
+      background: var(--tomato);
+      color: #fff;
+    }
+
+    .hero {
+      border-radius: 28px;
+      border: 1px solid #f2dbd1;
+      background: linear-gradient(135deg, #fff 0%, #fff9f1 100%);
+      box-shadow: 0 16px 48px rgba(143, 31, 21, 0.1);
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: min(430px, 100%);
+      border-radius: 18px;
+      justify-self: center;
+      display: block;
+    }
+
+    .hero-media {
+      width: 100%;
+      min-height: 460px;
+      overflow: hidden;
+      position: relative;
+      background: #fff;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center center;
+      opacity: 0;
+      transform: scale(1.12);
+      transition: opacity 0.9s ease-in-out, transform 6s ease-out;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 40%);
+    }
+
+    .carousel-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.35rem;
+      z-index: 3;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .carousel-dot.active {
+      background: #ffffff;
+      box-shadow: 0 0 0 1px rgba(31, 29, 28, 0.25);
+      transform: scale(1.15);
+    }
+
+    .hero-content {
+      padding: 1rem 1.2rem 1.2rem;
+      background: linear-gradient(180deg, #ffffff 0%, #fff7ee 100%);
+      border-top: 1px solid #f1e2d8;
+    }
+
+    .hero-content h1 {
+      margin: 0;
+      color: var(--tomato-dark);
+      font-size: clamp(1.9rem, 3.1vw, 2.6rem);
+    }
+
+    .hero-subtext {
+      margin: 0.3rem 0 0;
+      color: var(--leaf-dark);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    h1, h2, h3 {
+      font-family: "Bree Serif", serif;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3.3vw, 2.7rem);
+      color: var(--tomato-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .est {
+      color: var(--leaf-dark);
+      font-weight: 800;
+      margin-bottom: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.84rem;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .grid {
+      margin-top: 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .card {
+      border-radius: 24px;
+      border: 1px solid #f1ddd1;
+      background: var(--card);
+      box-shadow: 0 14px 42px rgba(143, 31, 21, 0.1);
+      overflow: hidden;
+    }
+
+    .card-media {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border-bottom: 1px solid #f1e2d8;
+      background: #efe8e2;
+    }
+
+    .card-media img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center center;
+      display: block;
+      transform: scale(1.2);
+      transform-origin: center;
+    }
+
+    .card-body {
+      padding: 1rem 1rem 1.1rem;
+      background: #fff;
+    }
+
+    h2 {
+      font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+      color: var(--leaf-dark);
+      margin-bottom: 0.45rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--tomato-dark);
+      margin-bottom: 0.45rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .card-actions {
+      margin-top: 0.8rem;
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.48rem 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 800;
+      border: 1px solid transparent;
+    }
+
+    .btn.primary {
+      background: var(--tomato);
+      color: #fff;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--leaf-dark);
+      border-color: #cfead8;
+    }
+
+    .links {
+      margin-top: 1.25rem;
+      border-radius: 24px;
+      border: 1px solid #f1ddd1;
+      background: var(--cream);
+      padding: 1.05rem;
+    }
+
+    .pill-list {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .pill-list a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid #efd5c8;
+      border-radius: 999px;
+      padding: 0.4rem 0.72rem;
+    }
+
+    .social {
+      margin-top: 1.25rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+    }
+
+    .social a {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 0.75rem;
+      align-items: center;
+      text-decoration: none;
+      color: var(--ink);
+      border-radius: 16px;
+      border: 1px solid #efd9ce;
+      background: #fff;
+      padding: 0.65rem;
+    }
+
+    .social img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid #f3e5dc;
+    }
+
+    .social strong { display: block; font-size: 0.95rem; }
+    .social span { color: var(--muted); font-size: 0.88rem; }
+
+    @media (max-width: 920px) {
+      .hero,
+      .grid,
+      .social {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar { flex-direction: column; }
+      .hero-media {
+        min-height: 320px;
+      }
+      .card-media {
+        height: 230px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="current">
-        <h5 >2026 Summer Camp is Live!</h5>
-        <a href="signup.html"><button >Sign Up!</button></a>
-    </div>
-    <div class="screen1">
-    <img src="./src/IMG_2742.jpeg" alt="Tomato theatre company" id="backgroundImage">
-    <header>
-        
-        <ul>
-            <li>
-                <a href="index.html" class="slabo-27px-regular">home</a>
-            </li>
-            <li>
-                <a href="aboutus.html" class="slabo-27px-regular">about us</a>
-            </li>
-            <li>
-                <a href="team.html" class="slabo-27px-regular">our team</a>
-            </li>
-            <li>
-                <a href="history.html" class="slabo-27px-regular">past productions</a>
-            </li>
-            <li>
-                <a href="contact.html" class="slabo-27px-regular">contact us</a>
-            </li>
-        </ul>
-    </header>
-    <div class="banner">
+  <div class="topbar">
+    <span>2026 Summer Camp is Live!</span>
+    <a href="signup.html">Sign Up</a>
+  </div>
+
+  <main class="page">
+    <nav class="nav" aria-label="Primary">
+      <a class="active" href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="history.html">Past Productions</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-media" aria-label="Tomato Theatre image carousel">
+        <img class="carousel-slide active" src="src/img1.jpeg" alt="Tomato Theatre camp and performance highlight 1" />
+        <img class="carousel-slide" src="src/img2.jpeg" alt="Tomato Theatre camp and performance highlight 2" />
+        <img class="carousel-slide" src="src/img4.jpeg" alt="Tomato Theatre camp and performance highlight 3" />
+        <div class="carousel-dots" role="tablist" aria-label="Carousel indicators">
+          <button class="carousel-dot active" type="button" aria-label="Show slide 1"></button>
+          <button class="carousel-dot" type="button" aria-label="Show slide 2"></button>
+          <button class="carousel-dot" type="button" aria-label="Show slide 3"></button>
+        </div>
+      </div>
+      <div class="hero-content">
         <h1>Tomato Theatre Company</h1>
-        <p>Tomato Theatre Company was created to give kids K-6 an opportunity to express their creativity and learn about performing arts through affordable, educational programs. We also give high schoolers in our community a chance to take on leadership roles and make connections with others. </p>
-    </div>
-    <!-- <div class="down">↓</div> -->
-</div>
-<div class="page1">
-    
-</div>
-<script src="background-rotator.js" defer></script>
+        <p class="hero-subtext">Creative theatre programs for K-6 students, powered by teen leadership.</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="card-media">
+          <img src="src/home-assets/pirate-musical.png" alt="Tomato Theatre fundraiser event" />
+        </div>
+        <div class="card-body">
+          <h2>Upcoming Fundraiser</h2>
+          <h3>TEXT-01</h3>
+          <p>
+            TEXT-02
+          </p>
+          <div class="card-actions">
+            <a class="btn primary" href="https://www.gofundme.com/f/tomato-theatre-company-spring-fundraiser-2025" target="_blank" rel="noopener noreferrer">Donate on GoFundMe</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-media">
+          <img src="src/img1.jpeg" alt="Latest Tomato Theatre camp session" />
+        </div>
+        <div class="card-body">
+          <h2>2026 Summer Camp is Live!</h2>
+          <h3>TEXT-03</h3>
+          <p>
+            TEXT-04
+          </p>
+          <div class="card-actions">
+            <a class="btn primary" href="signup.html">Sign Up for Camp</a>
+            <a class="btn secondary" href="contact.html">Ask a Question</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="links">
+      <h2>Past Productions</h2>
+      <div class="pill-list">
+        <a href="https://www.tomatotheatreco.org/past-productions/2022-tomato-the-musical" target="_blank" rel="noopener noreferrer">2022 Tomato: The Musical</a>
+        <a href="https://www.tomatotheatreco.org/past-productions/2023-a-very-pirate-musical" target="_blank" rel="noopener noreferrer">2023 A Very Pirate Musical</a>
+        <a href="https://www.tomatotheatreco.org/past-productions/2024-fundraiser" target="_blank" rel="noopener noreferrer">2024 Fundraiser</a>
+        <a href="https://www.tomatotheatreco.org/past-productions/2024-once-upon-a-musical" target="_blank" rel="noopener noreferrer">2024 Once Upon a Musical</a>
+        <a href="https://www.tomatotheatreco.org/past-productions/2025-annie-kids" target="_blank" rel="noopener noreferrer">2025 Annie Kids</a>
+        <a href="https://www.tomatotheatreco.org/past-productions/2025-fundraiser" target="_blank" rel="noopener noreferrer">2025 Fundraiser</a>
+        <a href="https://www.tomatotheatreco.org/past-productions/2025-spring-show-choir" target="_blank" rel="noopener noreferrer">2025 Spring Show Choir</a>
+      </div>
+    </section>
+
+    <section class="social">
+      <a href="https://www.instagram.com/sbtomatotheatreco/" target="_blank" rel="noopener noreferrer">
+        <img src="src/home-assets/instagram.png" alt="Instagram" />
+        <div>
+          <strong>Instagram</strong>
+          <span>@sbtomatotheatreco</span>
+        </div>
+      </a>
+
+      <a href="https://www.gofundme.com/f/tomato-theatre-company-spring-fundraiser-2025" target="_blank" rel="noopener noreferrer">
+        <img src="src/home-assets/gofundme.png" alt="GoFundMe" />
+        <div>
+          <strong>GoFundMe</strong>
+          <span>Spring Fundraiser 2025</span>
+        </div>
+      </a>
+
+      <a href="https://www.facebook.com/profile.php?id=61576289045439" target="_blank" rel="noopener noreferrer">
+        <img src="src/home-assets/facebook.png" alt="Facebook" />
+        <div>
+          <strong>Facebook</strong>
+          <span>SB Tomato Theatre Company</span>
+        </div>
+      </a>
+    </section>
+  </main>
+  <script>
+    const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+    const dots = Array.from(document.querySelectorAll(".carousel-dot"));
+    const carousel = document.querySelector(".hero-media");
+    let currentSlide = 0;
+    let autoplayId;
+
+    function showSlide(index) {
+      slides[currentSlide].classList.remove("active");
+      dots[currentSlide].classList.remove("active");
+      currentSlide = index;
+      slides[currentSlide].classList.add("active");
+      dots[currentSlide].classList.add("active");
+    }
+
+    function nextSlide() {
+      const nextIndex = (currentSlide + 1) % slides.length;
+      showSlide(nextIndex);
+    }
+
+    function startAutoplay() {
+      clearInterval(autoplayId);
+      autoplayId = setInterval(nextSlide, 4500);
+    }
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => showSlide(index));
+    });
+
+    carousel.addEventListener("mouseenter", () => clearInterval(autoplayId));
+    carousel.addEventListener("mouseleave", startAutoplay);
+
+    startAutoplay();
+  </script>
 </body>
 </html>

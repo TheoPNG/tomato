@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tomato Theatre Company | Past Productions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --tomato: #d63f2f;
+      --tomato-dark: #8f1f15;
+      --leaf-dark: #0a4d2a;
+      --ink: #201d1b;
+      --muted: #5f5853;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 5% 0%, #ffe2d8 0, transparent 35%),
+        radial-gradient(circle at 95% 25%, #d7f4e2 0, transparent 28%),
+        linear-gradient(165deg, #fffaf6 0%, #fff2e6 100%);
+    }
+
+    .page {
+      width: min(1100px, 94vw);
+      margin: 0 auto;
+      padding: 1.2rem 0 3rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 0.75rem;
+      margin-bottom: 1.25rem;
+      border-radius: 999px;
+      border: 1px solid #f2d9ce;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 10px 28px rgba(143, 31, 21, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.96rem;
+      padding: 0.38rem 0.72rem;
+      border-radius: 999px;
+    }
+
+    .nav a.active,
+    .nav a:hover {
+      background: var(--tomato);
+      color: #fff;
+    }
+
+    .hero,
+    .production {
+      border-radius: 24px;
+      border: 1px solid #f1ddd1;
+      background: var(--card);
+      box-shadow: 0 14px 42px rgba(143, 31, 21, 0.1);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1,
+    .production h2 {
+      margin: 0;
+      font-family: "Bree Serif", serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 {
+      color: var(--tomato-dark);
+      font-size: clamp(1.85rem, 3.1vw, 2.5rem);
+    }
+
+    .hero p,
+    .production p {
+      margin: 0.6rem 0 0;
+      color: var(--muted);
+      line-height: 1.62;
+      font-size: 1rem;
+    }
+
+    .production h2 {
+      color: var(--leaf-dark);
+      font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .tag {
+      display: inline-block;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tomato-dark);
+      font-size: 0.78rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .quote {
+      margin-top: 0.85rem;
+      padding: 0.8rem;
+      border: 1px solid #f2e0d5;
+      border-radius: 12px;
+      background: #fff7f1;
+      color: #574f49;
+      font-style: italic;
+    }
+
+    .gallery {
+      margin-top: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      border: 1px solid #ead8cc;
+      object-fit: cover;
+      display: block;
+      background: #f8f1eb;
+    }
+
+    .gallery.portrait-first {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .gallery.portrait-first img:first-child {
+      height: 360px;
+    }
+
+    @media (max-width: 900px) {
+      .gallery,
+      .gallery.portrait-first {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery.portrait-first img:first-child {
+        height: 240px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .gallery,
+      .gallery.portrait-first {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery img,
+      .gallery.portrait-first img:first-child {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+      <a class="active" href="history.html">Past Productions</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <section class="hero">
+      <h1>Past Productions</h1>
+      <p>Highlights from our shows and programs in 2022, 2023, and 2024.</p>
+    </section>
+
+    <section class="production">
+      <span class="tag">2022</span>
+      <h2>Tomato: The Musical</h2>
+      <p>
+        <strong>Plot Summary:</strong> Tomato: The Musical follows a young tomato who is forced to decide whether he is a fruit or a vegetable.
+        As he meets characters from both sides, he learns he does not need to choose one group to belong. With help from friends,
+        the fruit-and-vegetable feud is resolved and everyone comes together.
+      </p>
+      <p>
+        <strong>What Tomato Means to Us:</strong> This was Tomato Theatre Company's first production and the show that inspired our name.
+        It proved we could build meaningful, youth-led theatre and make a real impact in our community.
+      </p>
+      <p class="quote">"It was really rewarding to see my hard work and ambition show through this wonderful musical." - Adora Bricher</p>
+      <div class="gallery portrait-first">
+        <img src="src/history-assets/2022/unnamed(2).jpg" alt="Camper holding Tomato The Musical program" />
+        <img src="src/history-assets/2022/unnamed(1).jpg" alt="Tomato The Musical poster art" />
+        <img src="src/history-assets/2022/unnamed(3).jpg" alt="Tomato The Musical program close-up" />
+        <img src="src/history-assets/2022/unnamed(4).jpg" alt="2022 cast on stage" />
+        <img src="src/history-assets/2022/unnamed(5).jpg" alt="2022 stage performance" />
+        <img src="src/history-assets/2022/unnamed(6).jpg" alt="2022 dialogue scene on stage" />
+        <img src="src/history-assets/2022/unnamed(7).jpg" alt="Tomato themed costume design sheet" />
+      </div>
+    </section>
+
+    <section class="production">
+      <span class="tag">2023</span>
+      <h2>A Very Pirate Musical</h2>
+      <p>
+        <strong>Plot Summary:</strong> A young pirate captain and crew search for treasure, but their carelessness pollutes the ocean.
+        With courage from Calico, pirates and sea creatures finally communicate, repair the harm, and clean up the sea together.
+      </p>
+      <p class="quote">"It was amazing to see our vision grow as we expanded our camp this year." - Tessa McNees</p>
+      <div class="gallery">
+        <img src="src/history-assets/2023/unnamed(1).jpg" alt="A Very Pirate Musical poster" />
+        <img src="src/history-assets/2023/unnamed(2).jpg" alt="Sea creature costume concept sheet" />
+        <img src="src/history-assets/2023/unnamed(3).jpg" alt="Pirate costume concept sheet" />
+        <img src="src/history-assets/2023/unnamed(4).jpg" alt="Camp activity in rehearsal space" />
+        <img src="src/history-assets/2023/unnamed(5).jpg" alt="Pirate musical performance on stage" />
+        <img src="src/history-assets/2023/unnamed(6).jpg" alt="Cast in costume at camp production" />
+        <img src="src/history-assets/2023/unnamed(7).jpg" alt="Student performers on stage" />
+      </div>
+    </section>
+
+    <section class="production">
+      <span class="tag">2024</span>
+      <h2>Tomato Theatre Fundraiser</h2>
+      <p>
+        Last year we hosted our first fundraiser with an auction, raffle, and performance featuring many team members and returning campers.
+        The event was a huge success thanks to generous support from our community, and we surpassed our donation goal.
+      </p>
+      <div class="gallery">
+        <img src="src/history-assets/2024/unnamed(1).jpg" alt="2024 fundraiser event photo" />
+      </div>
+    </section>
+  </main>
+</body>
+</html>
