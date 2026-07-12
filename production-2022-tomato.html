@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2022 Tomato: The Musical | Tomato Theatre Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --tomato: #d63f2f;
+      --tomato-dark: #8f1f15;
+      --leaf-dark: #0a4d2a;
+      --ink: #201d1b;
+      --muted: #5f5853;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 5% 0%, #ffe2d8 0, transparent 35%),
+        radial-gradient(circle at 95% 25%, #d7f4e2 0, transparent 28%),
+        linear-gradient(165deg, #fffaf6 0%, #fff2e6 100%);
+    }
+    .page { width: min(1100px, 94vw); margin: 0 auto; padding: 1.2rem 0 3rem; }
+    .nav {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem;
+      padding: 0.75rem; margin-bottom: 1.25rem; border-radius: 999px;
+      border: 1px solid #f2d9ce; background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 10px 28px rgba(143, 31, 21, 0.08);
+    }
+    .nav a {
+      text-decoration: none; color: var(--ink); font-weight: 700; font-size: 0.96rem;
+      padding: 0.38rem 0.72rem; border-radius: 999px;
+    }
+    .nav a.active, .nav a:hover { background: var(--tomato); color: #fff; }
+    .card {
+      border-radius: 24px; border: 1px solid #f1ddd1; background: #fff;
+      box-shadow: 0 14px 42px rgba(143, 31, 21, 0.1); padding: 1.2rem; margin-bottom: 1rem;
+    }
+    h1, h2 {
+      margin: 0; font-family: "Bree Serif", serif; font-weight: 400; letter-spacing: 0.02em;
+    }
+    h1 { color: var(--tomato-dark); font-size: clamp(1.8rem, 3vw, 2.4rem); }
+    h2 { color: var(--leaf-dark); font-size: clamp(1.2rem, 2vw, 1.6rem); margin-bottom: 0.5rem; }
+    p { color: var(--muted); line-height: 1.62; margin: 0.55rem 0 0; }
+    .hero-img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 14px; border: 1px solid #edd9cc; }
+    .placeholder {
+      margin-top: 0.8rem; padding: 0.85rem; border: 1px dashed #d9b7a6; border-radius: 10px;
+      background: #fff8f3; color: #7a5c4f; font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+      <a class="active" href="history.html">Past Productions</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <section class="card">
+      <h1>2022 Tomato: The Musical</h1>
+      <p>Production detail page with placeholders for final write-up.</p>
+      <img class="hero-img" src="src/history-assets/2022/unnamed(1).jpg" alt="Tomato The Musical poster" />
+    </section>
+
+    <section class="card">
+      <h2>Overview</h2>
+      <div class="placeholder">TEXT-01: One paragraph production overview.</div>
+      <div class="placeholder">TEXT-02: Plot summary (short version).</div>
+    </section>
+
+    <section class="card">
+      <h2>Creative Team</h2>
+      <div class="placeholder">TEXT-03: Writer/Composer credit line.</div>
+      <div class="placeholder">TEXT-04: Directors and music leads.</div>
+      <div class="placeholder">TEXT-05: Production staff credits.</div>
+    </section>
+
+    <section class="card">
+      <h2>Cast & Program Notes</h2>
+      <div class="placeholder">TEXT-06: Cast highlights.</div>
+      <div class="placeholder">TEXT-07: Program note or quote.</div>
+      <div class="placeholder">TEXT-08: Additional acknowledgements.</div>
+    </section>
+  </main>
+</body>
+</html>
